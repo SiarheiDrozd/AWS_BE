@@ -1,4 +1,6 @@
-[
+export const getProductMocks = async () => products;
+
+const products = [
   {
     "count": 4,
     "description": "Short Product Description1",
@@ -56,3 +58,4 @@
     "title": "ProductName"
   }
 ]
+
