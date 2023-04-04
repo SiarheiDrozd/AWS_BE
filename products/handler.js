@@ -18,9 +18,17 @@ exports.getProductsById = async (event) => {
   const { productId } = event.pathParameters;
   const product = await products.find(item => item.id === productId);
 
-  return {
-    statusCode: 200,
-    headers: corsHeaders,
-    body: JSON.stringify({product: product}),
-  };
+  if (product) {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: JSON.stringify({product: product}),
+    };
+  } else {
+    return {
+      statusCode: 204,
+      headers: corsHeaders,
+      body: `product with id ${productId} was not found`,
+    };
+  }
 };
