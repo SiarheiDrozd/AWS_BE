@@ -1,3 +1,5 @@
+org: drozdsi
+app: products
 service: products
 frameworkVersion: '3'
 
@@ -7,6 +9,16 @@ provider:
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'npm'
 
 functions:
   getProductsList:
