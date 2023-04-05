@@ -11,14 +11,22 @@ provider:
   stage: dev
 
 plugins:
-  - serverless-webpack
+  - serverless-auto-swagger
   - serverless-offline
+  - serverless-webpack
 
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules: true
     packager: 'npm'
+  autoswagger:
+    title: 'string'
+    apiType: 'http'
+    generateSwaggerOnDeploy: true
+    typefiles: []
+    schemes: ['https', 'http']
+    basePath: '/dev'
 
 functions:
   getProductsList:

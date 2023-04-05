@@ -20,7 +20,7 @@ const getProductsById = async (event) => {
     return  {
       statusCode: 500,
       headers: corsHeaders,
-      body: JSON.stringify({product: product}),
+      body: 'Something went wrong. ' + err,
     };
   }
 }

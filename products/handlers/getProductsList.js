@@ -18,7 +18,7 @@ const getProductsList = async () => {
     return {
       statusCode: 500,
       headers: corsHeaders,
-      body: 'request failed'
+      body: 'Something went wrong. Error: ' + err,
     };
   }
 };
