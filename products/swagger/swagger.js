@@ -23,6 +23,48 @@
             "description": "200 response"
           }
         }
+      },
+      "post": {
+        "summary": "createProduct",
+        "description": "",
+        "operationId": "createProduct.post./products",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "count",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response"
+          }
+        }
       }
     },
     "/products/{productId}": {

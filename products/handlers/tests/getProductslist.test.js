@@ -1,5 +1,5 @@
 import getProductsList from "../getProductsList";
-import { getProductMocks } from '../../mocks/products'
+import { getProductMocks } from '../../mocks/products.mjs'
 describe('Get products list', () => {
   test('should return objects array', async () => {
     const products = await getProductMocks();
