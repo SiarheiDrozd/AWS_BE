@@ -1,0 +1,45 @@
+org: drozdsi
+app: products
+service: products
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  profile: '489669634691_Siarhei_Drozd'
+  region: 'us-east-1'
+  stage: dev
+
+plugins:
+  - serverless-auto-swagger
+  - serverless-offline
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'npm'
+  autoswagger:
+    title: 'string'
+    apiType: 'http'
+    generateSwaggerOnDeploy: true
+    typefiles: []
+    schemes: ['https', 'http']
+    basePath: '/dev'
+
+functions:
+  getProductsList:
+    handler: handler.getProductsList
+    events:
+      - http:
+          path: /products
+          method: get
+          cors: true
+  getProductsById:
+    handler: handler.getProductsById
+    events:
+      - http:
+          path: /products/{productId}
+          method: get
+          cors: true
