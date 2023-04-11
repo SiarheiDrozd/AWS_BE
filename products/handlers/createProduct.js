@@ -4,57 +4,65 @@ import { v4 as uuid } from 'uuid';
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Credentials': true,
-  'content-type': 'application/json'
+  'Content-Type': 'application/json'
 }
-const error = (err, data) => {
-  console.log(err, data);
+const error = ({code, err, data}) => {
+  console.log('Something went wrong. Error: ' + err, data);
 
   return {
-    statusCode: 500,
+    statusCode: code || 500,
     isBase64Encoded: false,
     headers: corsHeaders,
     body: 'Something went wrong. Error: ' + err,
   }
 }
+
+const props = ['count', 'title', 'description', 'price'];
+
 const createProduct = async (event) => {
-  console.log(event.queryStringParameters);
+  console.log(event);
+
+  const itemId = uuid();
+  const body = JSON.parse(event.body);
   const dynamo = new AWS.DynamoDB.DocumentClient();
 
   try {
-    const itemId = uuid();
-    const { count, title, description, price } = event.queryStringParameters;
+    const missedFromSchema = props.find(prop => !body.hasOwnProperty(prop));
 
-    dynamo.put({
-      TableName: 'stock',
+    if (missedFromSchema) {
+      return error({code: 400, err: `'${missedFromSchema}' property missed.`});
+    }
+
+    await dynamo.put({
+      TableName: process.env.DB_STOCK,
       Item: {
         id: itemId,
-        count: count
+        count: body.count
       }
     },(err, data) => {
-      return error(err, data);
-    });
+      return error({err, data});
+    }).promise();
 
-    dynamo.put({
-      TableName: 'products',
+    await dynamo.put({
+      TableName: process.env.DB_PRODUCTS,
       Item: {
         id: itemId,
-        count: count,
-        title: title,
-        description: description,
-        price: price
+        title: body.title,
+        description: body.description,
+        price: body.price
       }
     },(err, data) => {
-      return error(err, data);
-    });
+      return error({err, data});
+    }).promise();
 
     return {
       statusCode: 200,
       headers: corsHeaders,
       isBase64Encoded: false,
-      body: 'success'
+      body: JSON.stringify({result: 'success'})
     };
   } catch (err) {
-    return error(err);
+    return error({err});
   }
 };
 

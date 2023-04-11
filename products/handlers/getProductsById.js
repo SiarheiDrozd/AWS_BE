@@ -1,14 +1,5 @@
 import AWS from "aws-sdk";
 
-const query = async (table, id) => {
-  const dynamo = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
-  const queryParams = {
-    TableName: table,
-    KeyConditionExpression: 'id = :id',
-    ExpressionAttributeValues: { ':id': id }
-  }
-  return dynamo.query(queryParams).promise();
-}
 
 const getProductsById = async (event) => {
   console.log(event.queryStringParameters);
@@ -16,13 +7,23 @@ const getProductsById = async (event) => {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
-    'content-type': 'application/json'
+    'Content-Type': 'application/json'
   }
 
   try {
+    const dynamo = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
+    const query = async (table, id) => {
+      const queryParams = {
+        TableName: table,
+        KeyConditionExpression: 'id = :id',
+        ExpressionAttributeValues: { ':id': id }
+      }
+      return dynamo.query(queryParams).promise();
+    }
+
     const { productId } = event.pathParameters;
-    const products = await query('products', productId);
-    const stock = await query('stock', productId);
+    const products = await query(process.env.DB_PRODUCTS, productId);
+    const stock = await query(process.env.DB_STOCK, productId);
     const product = {...products.Items[0], ...stock.Items[0]};
 
     if (!product) {

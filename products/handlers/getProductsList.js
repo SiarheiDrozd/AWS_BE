@@ -15,7 +15,7 @@ const getProductsList = async () => {
     const resultList = products.Items.map(item => {
       return {
         ...item,
-        ...stock[item.id]
+        ...stock.Items.find(stockItem => stockItem.id ===item.id)
       }
     });
 

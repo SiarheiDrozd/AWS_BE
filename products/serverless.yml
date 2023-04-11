@@ -10,8 +10,9 @@ provider:
   region: 'us-east-1'
   stage: dev
   environment:
-    DB_STOCK: 'stock'
-    DB_PRODUCTS: 'products'
+    STAGE: ${self:custom.stage}
+    DB_STOCK: ${self:custom.DB_STOCK.${self:custom.stage}}
+    DB_PRODUCTS: ${self:custom.DB_PRODUCTS.${self:custom.stage}}
     AWS_SDK_LOAD_CONFIG: 1
   iam:
     role: arn:aws:iam::489669634691:role/dblambdaAccess
@@ -47,6 +48,11 @@ custom:
       convertEmptyValues: true
     # Uncomment only if you already have a DynamoDB running locally
     # noStart: true
+  stage: ${opt:stage, self:provider.stage}
+  DB_STOCK:
+    dev: ${ssm:/system/api/DB_STOCK}
+  DB_PRODUCTS:
+    dev: ${ssm:/system/api/DB_PRODUCTS}
 
 functions:
   getProductsList:
