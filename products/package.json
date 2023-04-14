@@ -30,7 +30,9 @@
     "serverless-webpack": "^5.11.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.312.0",
     "aws-sdk": "^2.1351.0",
+    "csv-parser": "^3.0.0",
     "process": "^0.11.10",
     "uuid": "^9.0.0",
     "webpack": "^5.77.0",
