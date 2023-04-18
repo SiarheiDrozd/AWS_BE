@@ -1,0 +1,155 @@
+{
+  "resource":"/import",
+  "path":"/import",
+  "httpMethod":"GET",
+  "headers":{
+    "Accept":"application/json, text/plain, */*",
+    "Accept-Encoding":"gzip, deflate, br",
+    "Accept-Language":"en-US,en;q=0.9,ru;q=0.8,pl;q=0.7,de;q=0.6,be;q=0.5",
+    "CloudFront-Forwarded-Proto":"https",
+    "CloudFront-Is-Desktop-Viewer":"true",
+    "CloudFront-Is-Mobile-Viewer":"false",
+    "CloudFront-Is-SmartTV-Viewer":"false",
+    "CloudFront-Is-Tablet-Viewer":"false",
+    "CloudFront-Viewer-ASN":"50685",
+    "CloudFront-Viewer-Country":"BY",
+    "Host":"049ivrth94.execute-api.us-east-1.amazonaws.com",
+    "origin":"https://d2duzwlykfzx25.cloudfront.net",
+    "Referer":"https://d2duzwlykfzx25.cloudfront.net/",
+    "sec-ch-ua":"\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
+    "sec-ch-ua-mobile":"?0",
+    "sec-ch-ua-platform":"\"macOS\"",
+    "sec-fetch-dest":"empty",
+    "sec-fetch-mode":"cors",
+    "sec-fetch-site":"cross-site",
+    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+    "Via":"2.0 97cb978bbc25e9e074dab5cb643b1fac.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id":"7JomTHpWj-eHzhxVt7dsD6p29MzAeHQ3eXi0hS_5ypv-QDVr5oJjUA==",
+    "X-Amzn-Trace-Id":"Root=1-643e8d81-574569482d2944ac3cb40447",
+    "X-Forwarded-For":"93.171.161.218, 15.158.38.51",
+    "X-Forwarded-Port":"443",
+    "X-Forwarded-Proto":"https"
+  },
+  "multiValueHeaders":{
+    "Accept":[
+      "application/json, text/plain, */*"
+    ],
+    "Accept-Encoding":[
+      "gzip, deflate, br"
+    ],
+    "Accept-Language":[
+      "en-US,en;q=0.9,ru;q=0.8,pl;q=0.7,de;q=0.6,be;q=0.5"
+    ],
+    "CloudFront-Forwarded-Proto":[
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer":[
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer":[
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer":[
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer":[
+      "false"
+    ],
+    "CloudFront-Viewer-ASN":[
+      "50685"
+    ],
+    "CloudFront-Viewer-Country":[
+      "BY"
+    ],
+    "Host":[
+      "049ivrth94.execute-api.us-east-1.amazonaws.com"
+    ],
+    "origin":[
+      "https://d2duzwlykfzx25.cloudfront.net"
+    ],
+    "Referer":[
+      "https://d2duzwlykfzx25.cloudfront.net/"
+    ],
+    "sec-ch-ua":[
+      "\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\""
+    ],
+    "sec-ch-ua-mobile":[
+      "?0"
+    ],
+    "sec-ch-ua-platform":[
+      "\"macOS\""
+    ],
+    "sec-fetch-dest":[
+      "empty"
+    ],
+    "sec-fetch-mode":[
+      "cors"
+    ],
+    "sec-fetch-site":[
+      "cross-site"
+    ],
+    "User-Agent":[
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+    ],
+    "Via":[
+      "2.0 97cb978bbc25e9e074dab5cb643b1fac.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id":[
+      "7JomTHpWj-eHzhxVt7dsD6p29MzAeHQ3eXi0hS_5ypv-QDVr5oJjUA=="
+    ],
+    "X-Amzn-Trace-Id":[
+      "Root=1-643e8d81-574569482d2944ac3cb40447"
+    ],
+    "X-Forwarded-For":[
+      "93.171.161.218, 15.158.38.51"
+    ],
+    "X-Forwarded-Port":[
+      "443"
+    ],
+    "X-Forwarded-Proto":[
+      "https"
+    ]
+  },
+  "queryStringParameters":{
+    "name":"products.csv"
+  },
+  "multiValueQueryStringParameters":{
+    "name":[
+      "products.csv"
+    ]
+  },
+  "pathParameters":null,
+  "stageVariables":null,
+  "requestContext":{
+    "resourceId":"jczuzc",
+    "resourcePath":"/import",
+    "httpMethod":"GET",
+    "extendedRequestId":"DksMVFpNoAMFycg=",
+    "requestTime":"18/Apr/2023:12:30:57 +0000",
+    "path":"/dev/import",
+    "accountId":"489669634691",
+    "protocol":"HTTP/1.1",
+    "stage":"dev",
+    "domainPrefix":"049ivrth94",
+    "requestTimeEpoch":1681821057878,
+    "requestId":"f746c635-cf8b-4ebe-bb81-b00e1905c970",
+    "identity":{
+      "cognitoIdentityPoolId":null,
+      "accountId":null,
+      "cognitoIdentityId":null,
+      "caller":null,
+      "sourceIp":"93.171.161.218",
+      "principalOrgId":null,
+      "accessKey":null,
+      "cognitoAuthenticationType":null,
+      "cognitoAuthenticationProvider":null,
+      "userArn":null,
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+      "user":null
+    },
+    "domainName":"049ivrth94.execute-api.us-east-1.amazonaws.com",
+    "apiId":"049ivrth94"
+  },
+  "body":null,
+  "isBase64Encoded":false
+}
