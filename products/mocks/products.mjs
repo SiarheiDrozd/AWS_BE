@@ -59,3 +59,4 @@ const products = [
   }
 ]
 
+export default getProductMocks;

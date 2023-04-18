@@ -9,11 +9,19 @@ provider:
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
+  environment:
+    STAGE: ${self:custom.stage}
+    DB_STOCK: ${self:custom.DB_STOCK.${self:custom.stage}}
+    DB_PRODUCTS: ${self:custom.DB_PRODUCTS.${self:custom.stage}}
+    AWS_SDK_LOAD_CONFIG: 1
+  iam:
+    role: arn:aws:iam::489669634691:role/dblambdaAccess
 
 plugins:
   - serverless-auto-swagger
-  - serverless-offline
   - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
 
 custom:
   webpack:
@@ -27,6 +35,24 @@ custom:
     typefiles: []
     schemes: ['https', 'http']
     basePath: '/dev'
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+    # Uncomment only if you already have a DynamoDB running locally
+    # noStart: true
+  stage: ${opt:stage, self:provider.stage}
+  DB_STOCK:
+    dev: ${ssm:/system/api/DB_STOCK}
+  DB_PRODUCTS:
+    dev: ${ssm:/system/api/DB_PRODUCTS}
 
 functions:
   getProductsList:
@@ -43,3 +69,17 @@ functions:
           path: /products/{productId}
           method: get
           cors: true
+  createProduct:
+    handler: handler.createProduct
+    events:
+      - http:
+          path: /products
+          method: post
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                count: false
+                title: false
+                description: false
+                price: false
