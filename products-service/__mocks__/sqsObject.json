@@ -1,0 +1,32 @@
+{
+  "Records": [
+    {
+      "messageId": "0ffbf957-a51d-4678-a017-04424d6f166e",
+      "receiptHandle": "AQEBS+HlWV768CEmW02/o2UD3LMBdvCGPbmeANUSGQRqw+LmI8YiP3jRrhSXbZtd3uG/P0WJyalwiLX8Dpc94eV+oPLtkdX74qYBr2FoSCsvD9YYs1VF/37dnWViL22SpdkMnHT1+Q3Lt9RHEKc0wDhnI3FZ3gdbq3R8r1chfdvaIimOL271wdUIAhHQwks0zO9bORtI37bFOJJbAI0boNBRsAFckFQ2e1ORZDyzTm+gYUfOspPs+W7zFqHPpudYmpTibQ8QAPR5o1z4Br/FANzEwCKKimYbntafJyOeYvcQSAGzENmGWZ/bLmwCOP0FJNqKd+suLGSB1xK6LyEGQitrFso1LtwImaQfR6SDbH7Sc3/doUWlkPiW4xZzXjDM1BPN40DkW0YvI3ZBB2RDkByCqw==",
+      "body": "{\"id\":\"106\",\"count\":\"20\",\"description\":\"cGIJDV dkbWIQFxCawkExf dFxJNMFfVCSQBDQQlqzvObbKyLd decfnDYXgUiozx PwRFWonOSgZyWqDJWP\",\"price\":\"496\",\"title\":\"oecizZ\"}",
+      "attributes": [
+        "Object"
+      ],
+      "messageAttributes": {
+      },
+      "md5OfBody": "20d5756886666a47fbc1c6c15aa06ac0",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:489669634691:catalogItemsQueue",
+      "awsRegion": "us-east-1"
+    },
+    {
+      "messageId": "d46c9598-633b-4747-870a-87445a215f2b",
+      "receiptHandle": "AQEBYRl6dWsHTZm7mF+9GEcFIBaMu1qfTDEUyKTocXTAFHI3IWZJxoYzzSK04V/LhhGGnqduTDCm6IuXPs9RVRb9bN2Wso1JkCXPPEp07cebz2yEixEbvEoJj/Fw3PRmlL8vR968qBRi15IbPfDP7Wxz+4lyMiT9rMP13NFlHpM4ofei9Gbdt4dVQj+YET7Yo4QYJHdvUDiCuwvOh0AY9soGDNjsLrkabAC5KjgH0/Ctgzmem6H3MzOMRX/ue5rsvY+R6y9myD8ohnglsTJ73jTrgCkVCEBBLhI4/IzjQTB7CClSiV4wY5jJD79DEMLa3cFRP2IN/RdPuoV9VOoCYXCBC/JDckJQwWFi6PNqJt1WkBc3rRi2ZwV4VgOFPNvwhiPRV8cO4yNGB0BBfO3nO7g7+Q==",
+      "body": "{\"id\":\"102\",\"count\":\"47\",\"description\":\"lopOQQByfwjPjal vHbuvZOsmoS D\",\"price\":\"45\",\"title\":\"AjVAcoa\"}",
+      "attributes": [
+        "Object"
+      ],
+      "messageAttributes": {
+      },
+      "md5OfBody": "01e98d1ff4fdbf61a3b1d258d6b6d5ac",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:489669634691:catalogItemsQueue",
+      "awsRegion": "us-east-1"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ provider:
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
+  versionFunctions: false
   environment:
     STAGE: ${self:custom.stage}
     DB_STOCK: ${self:custom.DB_STOCK.${self:custom.stage}}
@@ -37,6 +38,10 @@ provider:
             Fn::GetAtt:
               - catalogItemsQueue
               - Arn
+        - Effect: Allow
+          Action:
+            - 'sns:Publish'
+          Resource: '*'
 
 plugins:
   - serverless-auto-swagger
@@ -81,6 +86,13 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: "catalogItemsQueue"
+    createProductTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: "createProductTopic"
+        Subscription:
+          - Protocol: email
+            Endpoint: "siarhei_drozd@epam.com"
 
 functions:
   getProductsList:

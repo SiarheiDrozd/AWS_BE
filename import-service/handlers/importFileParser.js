@@ -14,8 +14,6 @@ const importFileParser = async (event) => {
   };
 
   try {
-    const results = [];
-
     for (const record of event.Records) {
       const RECORD_KEY = record.s3.object.key;
       const bucketParams = {
@@ -59,8 +57,6 @@ const importFileParser = async (event) => {
       }).catch((err) => {
         console.log('File delete: error. ', err);
       });
-
-      console.log('results', results);
     }
   } catch (err) {
     console.log(err);
