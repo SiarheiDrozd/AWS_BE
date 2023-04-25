@@ -1,6 +1,6 @@
 org: drozdsi
-app: products
-service: products
+app: products-service
+service: products-service
 frameworkVersion: '3'
 
 provider:
@@ -32,8 +32,8 @@ custom:
     title: 'string'
     apiType: 'http'
     generateSwaggerOnDeploy: true
-    typefiles: []
-    schemes: ['https', 'http']
+    typefiles: [ ]
+    schemes: [ 'https', 'http' ]
     basePath: '/dev'
   dynamodb:
     # If you only want to use DynamoDB Local in some stages, declare them here
@@ -59,21 +59,21 @@ functions:
     handler: handler.getProductsList
     events:
       - http:
-          path: /products
+          path: /products-service
           method: get
           cors: true
   getProductsById:
     handler: handler.getProductsById
     events:
       - http:
-          path: /products/{productId}
+          path: /products-service/{productId}
           method: get
           cors: true
   createProduct:
     handler: handler.createProduct
     events:
       - http:
-          path: /products
+          path: /products-service
           method: post
           cors: true
           request:
