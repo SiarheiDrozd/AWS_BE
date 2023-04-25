@@ -1,5 +1,5 @@
 org: drozdsi
-app: products-service
+app: products
 service: products-service
 frameworkVersion: '3'
 
@@ -15,7 +15,28 @@ provider:
     DB_PRODUCTS: ${self:custom.DB_PRODUCTS.${self:custom.stage}}
     AWS_SDK_LOAD_CONFIG: 1
   iam:
-    role: arn:aws:iam::489669634691:role/dblambdaAccess
+    #    role: arn:aws:iam::489669634691:role/dblambdaAccess
+    role:
+      name: lambdaAccess
+      statements:
+        - Effect: Allow
+          Action:
+            - 'dynamodb:Scan'
+            - 'dynamodb:Query'
+            - 'dynamodb:PutItem'
+          Resource:
+            - 'arn:aws:dynamodb:us-east-1:489669634691:table/${self.provider.environment.DB_STOCK}'
+            - 'arn:aws:dynamodb:us-east-1:489669634691:table/${self.provider.environment.DB_PRODUCTS}'
+        - Effect: Allow
+          Action:
+            - 'sqs:SendMessage'
+            - 'sqs:ReceiveMessage'
+            - 'sqs:DeleteMessage'
+            - 'sqs:GetQueueAttributes'
+          Resource:
+            Fn::GetAtt:
+              - catalogItemsQueue
+              - Arn
 
 plugins:
   - serverless-auto-swagger
@@ -54,6 +75,13 @@ custom:
   DB_PRODUCTS:
     dev: ${ssm:/system/api/DB_PRODUCTS}
 
+resources:
+  Resources:
+    catalogItemsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "catalogItemsQueue"
+
 functions:
   getProductsList:
     handler: handler.getProductsList
@@ -83,3 +111,12 @@ functions:
                 title: false
                 description: false
                 price: false
+  catalogBatchProcess:
+    handler: handler.catalogBatchProcess
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - catalogItemsQueue
+              - Arn
+          batchSize: 5
