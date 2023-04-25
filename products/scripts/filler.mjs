@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 import { v4 as uuid } from "uuid";
-import { getProductMocks } from "../mocks/products.mjs";
+import { getProductMocks } from "../__mocks__/products.mjs";
 
 const fillTable = async () => {
   console.log(process.env.DB_STOCK,process.env.DB_PRODUCTS);

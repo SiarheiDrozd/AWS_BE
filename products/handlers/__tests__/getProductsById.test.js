@@ -1,5 +1,5 @@
 import getProductsById from "../getProductsById";
-import { getProductMocks } from "../../mocks/products.mjs";
+import { getProductMocks } from "../../__mocks__/products.mjs";
 
 describe('Get product by Id', () => {
   test('should return object', async () => {
