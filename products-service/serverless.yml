@@ -90,9 +90,26 @@ resources:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: "createProductTopic"
-        Subscription:
-          - Protocol: email
-            Endpoint: "siarhei_drozd@epam.com"
+    cptAnySubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: email
+        Endpoint: "ggold.d.roger@gmail.com"
+        TopicArn: !Ref createProductTopic
+        FilterPolicyScope: MessageAttributes
+        FilterPolicy:
+          Count:
+            - empty
+    cptNonEmptySubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: email
+        Endpoint: "siarhei_drozd@epam.com"
+        TopicArn: !Ref createProductTopic
+        FilterPolicyScope: MessageAttributes
+        FilterPolicy:
+          Count:
+            - stock
 
 functions:
   getProductsList:

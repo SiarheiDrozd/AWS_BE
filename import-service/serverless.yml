@@ -9,6 +9,7 @@ provider:
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
+  versionFunctions: false
   environment:
     STAGE: ${self:custom.stage}
     CSV_BUCKET: ${self:custom.CSV_BUCKET}

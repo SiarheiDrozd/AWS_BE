@@ -9,9 +9,14 @@ const catalogBatchProcess = async (event) => {
     TopicArn: 'arn:aws:sns:us-east-1:489669634691:createProductTopic'
   };
 
-  sns.publish(params, (err, data) => {
-    err ? console.log('Error', err) : console.log('Success', data.MessageId);
-  });
+  try {
+    const result = await sns.publish(params).promise();
+    console.log('result', result);
+
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default catalogBatchProcess;

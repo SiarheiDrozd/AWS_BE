@@ -9,7 +9,13 @@ const importFileParser = async (event) => {
   const sqs = new AWS.SQS({region: 'us-east-1'});
   const sqsParams = {
     DelaySeconds: 10,
-    MessageBody: 'new object',
+    MessageAttributes: {
+      'Count': {
+        DataType: 'String',
+        StringValue: 'empty'
+      }
+    },
+    MessageBody: '',
     QueueUrl: 'https://sqs.us-east-1.amazonaws.com/489669634691/catalogItemsQueue'
   };
 
@@ -29,6 +35,7 @@ const importFileParser = async (event) => {
       await csvReadStream
         .pipe(csv())
         .on('data', async (data) => {
+          sqsParams.MessageAttributes.Count.StringValue = data.count ? 'empty' : 'stock';
           sqsParams.MessageBody = JSON.stringify(data);
           sqs.sendMessage(sqsParams, (err, data) => {
             if (err) {
