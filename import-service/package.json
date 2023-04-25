@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "sls:deploy:import-service": "sls deploy"
+    "sls:deploy:import-service": "sls deploy",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
