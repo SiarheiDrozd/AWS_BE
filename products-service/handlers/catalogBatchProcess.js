@@ -7,20 +7,28 @@ const catalogBatchProcess = async (event) => {
   const dynamoClient = new DynamoDBClient({});
   const records = event.Records.map(record => record.body);
   const sns = new AWS.SNS({region: 'us-east-1'});
-  const snsParams = {
-    Message: `New record added`,
-    MessageAttributes: {
-      Count: {
-        DataType: 'String',
-        StringValue: 'empty'
-      }
-    },
-    TopicArn: 'arn:aws:sns:us-east-1:489669634691:createProductTopic'
-  };
 
   try {
     const tableStock = process.env.DB_STOCK;
     const tableProducts = process.env.DB_PRODUCTS;
+    const sendSns = async (itemId, parsedItem) => {
+      const snsParams = {
+        Message: `New record added: ${itemId}`,
+        MessageAttributes: {
+          Count: {
+            DataType: 'String',
+            StringValue: parsedItem.count === '0' ? 'empty' : 'stock'
+          }
+        },
+        TopicArn: 'arn:aws:sns:us-east-1:489669634691:createProductTopic'
+      };
+
+      const result = await sns.publish(snsParams).promise();
+
+      console.log(result);
+
+      return result;
+    };
 
     const {stock, products} = records.reduce((acc, item) => {
       const itemId = crypto.randomUUID();
@@ -46,11 +54,7 @@ const catalogBatchProcess = async (event) => {
         }
       });
 
-      snsParams.MessageAttributes.Count.StringValue = parsedItem.count ? 'stock' : 'empty';
-      snsParams.Message = `New record added: ${itemId}`;
-      sns.publish(snsParams).promise().then((err, data) => {
-        console.log(err ? err : data);
-      });
+      sendSns(itemId, parsedItem);
 
       return acc;
     }, {stock: [], products: []});

@@ -38,13 +38,9 @@ const importFileParser = async (event) => {
         .on('data', async (data) => {
           sqsParams.MessageAttributes.Count.StringValue = data.count ? 'stock' : 'empty';
           sqsParams.MessageBody = JSON.stringify(data);
-          sqs.sendMessage(sqsParams, (err, data) => {
-            if (err) {
-              console.log('Error', err);
-            } else {
-              console.log('Success', data.MessageId);
-            }
-          });
+
+          const sqsResult = await sqs.sendMessage(sqsParams).promise();
+          console.log(sqsResult);
         });
 
       await s3.copyObject({
