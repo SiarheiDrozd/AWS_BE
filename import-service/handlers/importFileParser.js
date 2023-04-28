@@ -1,6 +1,7 @@
 import * as stream from 'stream';
 import AWS from 'aws-sdk';
 import csv from 'csv-parser';
+import crypto from 'crypto';
 
 const importFileParser = async (event) => {
   console.log(event);
@@ -8,15 +9,15 @@ const importFileParser = async (event) => {
   const BUCKET = process.env.CSV_BUCKET;
   const sqs = new AWS.SQS({region: 'us-east-1'});
   const sqsParams = {
-    DelaySeconds: 10,
     MessageAttributes: {
-      'Count': {
+      Count: {
         DataType: 'String',
         StringValue: 'empty'
       }
     },
     MessageBody: '',
-    QueueUrl: 'https://sqs.us-east-1.amazonaws.com/489669634691/catalogItemsQueue'
+    MessageGroupId: crypto.randomUUID(),
+    QueueUrl: 'https://sqs.us-east-1.amazonaws.com/489669634691/catalogItemsQueue.fifo'
   };
 
   try {
@@ -35,7 +36,7 @@ const importFileParser = async (event) => {
       await csvReadStream
         .pipe(csv())
         .on('data', async (data) => {
-          sqsParams.MessageAttributes.Count.StringValue = data.count ? 'empty' : 'stock';
+          sqsParams.MessageAttributes.Count.StringValue = data.count ? 'stock' : 'empty';
           sqsParams.MessageBody = JSON.stringify(data);
           sqs.sendMessage(sqsParams, (err, data) => {
             if (err) {

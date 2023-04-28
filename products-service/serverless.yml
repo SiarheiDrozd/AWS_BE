@@ -5,7 +5,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
@@ -16,7 +16,6 @@ provider:
     DB_PRODUCTS: ${self:custom.DB_PRODUCTS.${self:custom.stage}}
     AWS_SDK_LOAD_CONFIG: 1
   iam:
-    #    role: arn:aws:iam::489669634691:role/dblambdaAccess
     role:
       name: lambdaAccess
       statements:
@@ -25,9 +24,8 @@ provider:
             - 'dynamodb:Scan'
             - 'dynamodb:Query'
             - 'dynamodb:PutItem'
-          Resource:
-            - 'arn:aws:dynamodb:us-east-1:489669634691:table/${self.provider.environment.DB_STOCK}'
-            - 'arn:aws:dynamodb:us-east-1:489669634691:table/${self.provider.environment.DB_PRODUCTS}'
+            - 'dynamodb:BatchWriteItem'
+          Resource: '*'
         - Effect: Allow
           Action:
             - 'sqs:SendMessage'
@@ -48,7 +46,12 @@ plugins:
   - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
-
+#
+#constructs:
+#  catalogItemsQueue:
+#    type: queue
+#    worker:
+#      handler: src/worker.handler
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
@@ -85,12 +88,15 @@ resources:
     catalogItemsQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: "catalogItemsQueue"
+        QueueName: "catalogItemsQueue.fifo"
+        VisibilityTimeout: 60
+        ContentBasedDeduplication: true
+        FifoQueue: True
     createProductTopic:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: "createProductTopic"
-    cptAnySubscription:
+    cptEmptySubscription:
       Type: AWS::SNS::Subscription
       Properties:
         Protocol: email
@@ -100,7 +106,7 @@ resources:
         FilterPolicy:
           Count:
             - empty
-    cptNonEmptySubscription:
+    cptStockSubscription:
       Type: AWS::SNS::Subscription
       Properties:
         Protocol: email

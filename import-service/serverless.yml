@@ -29,7 +29,7 @@ provider:
         - 'sqs:ReceiveMessage'
         - 'sqs:DeleteMessage'
         - 'sqs:GetQueueAttributes'
-      Resource: 'arn:aws:sqs:us-east-1:489669634691:catalogItemsQueue'
+      Resource: 'arn:aws:sqs:us-east-1:489669634691:catalogItemsQueue.fifo'
 
 plugins:
   - serverless-auto-swagger
