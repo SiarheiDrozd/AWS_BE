@@ -9,6 +9,7 @@ provider:
   profile: '489669634691_Siarhei_Drozd'
   region: 'us-east-1'
   stage: dev
+  versionFunctions: false
   environment:
     STAGE: ${self:custom.stage}
     CSV_BUCKET: ${self:custom.CSV_BUCKET}
@@ -22,6 +23,13 @@ provider:
       Action:
         - "s3:*"
       Resource: "arn:aws:s3:::${self:custom.CSV_BUCKET}/*"
+    - Effect: Allow
+      Action:
+        - 'sqs:SendMessage'
+        - 'sqs:ReceiveMessage'
+        - 'sqs:DeleteMessage'
+        - 'sqs:GetQueueAttributes'
+      Resource: 'arn:aws:sqs:us-east-1:489669634691:catalogItemsQueue.fifo'
 
 plugins:
   - serverless-auto-swagger
@@ -37,8 +45,8 @@ custom:
     title: 'string'
     apiType: 'http'
     generateSwaggerOnDeploy: true
-    typefiles: []
-    schemes: ['https', 'http']
+    typefiles: [ ]
+    schemes: [ 'https', 'http' ]
     basePath: '/dev'
   stage: ${opt:stage, self:provider.stage}
   CSV_BUCKET: ${ssm:/system/api/CSV_BUCKET}
@@ -62,7 +70,7 @@ functions:
           bucket: ${self:provider.environment.CSV_BUCKET}
           event: s3:ObjectCreated:*
           rules:
-              - prefix: uploaded/
-              - suffix: .csv
+            - prefix: uploaded/
+            - suffix: .csv
           existing: true
 

@@ -1,5 +1,5 @@
-import getProductsById from "../getProductsById";
-import { getProductMocks } from "../../mocks/products.mjs";
+import getProductsById from '../getProductsById';
+import getProductMocks from '../../__mocks__/products.mjs';
 
 describe('Get product by Id', () => {
   test('should return object', async () => {
@@ -12,12 +12,12 @@ describe('Get product by Id', () => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({product: products[0]})
-    }
+    };
 
     getProductsById({pathParameters: {productId: products[0].id}})
       .then((response) => {
-      expect(response).toEqual(successResponse);
-    })
+        expect(response).toEqual(successResponse);
+      });
   });
   test('should return error', () => {
     const failedResponse = {
@@ -28,10 +28,10 @@ describe('Get product by Id', () => {
         'content-type': 'application/json'
       },
       body: 'Something went wrong. TypeError: Cannot read properties of undefined (reading \'pathParameters\')',
-    }
+    };
 
     getProductsById().then((response) => {
       expect(response).toEqual(failedResponse);
-    })
+    });
   });
 });

@@ -1,6 +1,7 @@
-import getProductsList from "../getProductsList";
-import { getProductMocks } from '../../mocks/products.mjs'
-describe('Get products list', () => {
+import getProductsList from '../getProductsList';
+import getProductMocks from '../../__mocks__/products.mjs';
+
+describe('Get products-service list', () => {
   test('should return objects array', async () => {
     const products = await getProductMocks();
     const successResponse = {
@@ -11,10 +12,10 @@ describe('Get products list', () => {
         'content-type': 'application/json'
       },
       body: JSON.stringify(products)
-    }
+    };
 
     getProductsList().then((response) => {
       expect(response).toEqual(successResponse);
-    })
+    });
   });
 });
