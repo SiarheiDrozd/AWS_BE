@@ -1,0 +1,44 @@
+org: drozdsi
+app: authorization-service
+service: authorization-service
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: '489669634691_Siarhei_Drozd'
+  region: 'us-east-1'
+  stage: dev
+  versionFunctions: false
+  environment:
+    STAGE: ${self:custom.stage}
+    AWS_SDK_LOAD_CONFIG: 1
+
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'npm'
+  autoswagger:
+    title: 'string'
+    apiType: 'http'
+    generateSwaggerOnDeploy: true
+    typefiles: [ ]
+    schemes: [ 'https', 'http' ]
+    basePath: '/dev'
+  stage: ${opt:stage, self:provider.stage}
+
+functions:
+  basicAuthorizer:
+    handler: handler.basicAuthorizer
+    events:
+      - http:
+          path: /import
+          method: get
+          cors: true
