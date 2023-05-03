@@ -1,5 +1,5 @@
 org: drozdsi
-app: authorization-service
+app: aws-be
 service: authorization-service
 frameworkVersion: '3'
 

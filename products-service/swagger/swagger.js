@@ -6,11 +6,11 @@
     "version": "1"
   },
   "paths": {
-    "/products-service": {
+    "/products": {
       "get": {
         "summary": "getProductsList",
         "description": "",
-        "operationId": "getProductsList.get./products-service",
+        "operationId": "getProductsList.get./products",
         "consumes": [
           "application/json"
         ],
@@ -27,7 +27,7 @@
       "post": {
         "summary": "createProduct",
         "description": "",
-        "operationId": "createProduct.post./products-service",
+        "operationId": "createProduct.post./products",
         "consumes": [
           "application/json"
         ],
@@ -67,11 +67,11 @@
         }
       }
     },
-    "/products-service/{productId}": {
+    "/products/{productId}": {
       "get": {
         "summary": "getProductsById",
         "description": "",
-        "operationId": "getProductsById.get./products-service/{productId}",
+        "operationId": "getProductsById.get./products/{productId}",
         "consumes": [
           "application/json"
         ],

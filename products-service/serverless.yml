@@ -1,5 +1,5 @@
 org: drozdsi
-app: products
+app: aws-be
 service: products-service
 frameworkVersion: '3'
 
@@ -122,21 +122,21 @@ functions:
     handler: handler.getProductsList
     events:
       - http:
-          path: /products-service
+          path: /products
           method: get
           cors: true
   getProductsById:
     handler: handler.getProductsById
     events:
       - http:
-          path: /products-service/{productId}
+          path: /products/{productId}
           method: get
           cors: true
   createProduct:
     handler: handler.createProduct
     events:
       - http:
-          path: /products-service
+          path: /products
           method: post
           cors: true
           request:

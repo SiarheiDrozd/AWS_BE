@@ -1,5 +1,5 @@
 org: drozdsi
-app: import-service
+app: aws-be
 service: import-service
 frameworkVersion: '3'
 

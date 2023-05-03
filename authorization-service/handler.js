@@ -1,4 +1,4 @@
-import basicAuthorizer from './handlers/importFileParser';
+import basicAuthorizer from './handlers/basicAuthorizer';
 
 export {
   basicAuthorizer
