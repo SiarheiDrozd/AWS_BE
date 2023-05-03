@@ -51,6 +51,31 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   CSV_BUCKET: ${ssm:/system/api/CSV_BUCKET}
 
+resources:
+  Resources:
+    AuthorizerApiGatewayResponseUnAuthorized:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: UNAUTHORIZED
+        ResponseTemplates:
+          application/json: '{"message": "You are not authorized to access this resource"}'
+        RestApiId: { "Ref": "ApiGatewayRestApi" }
+        StatusCode: '401'
+    AuthorizerApiGatewayResponseNoAccess:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: ACCESS_DENIED
+        ResponseTemplates:
+          application/json: '{"message": "Access denied. PERIOD!"}'
+        RestApiId: { "Ref": "ApiGatewayRestApi" }
+        StatusCode: '403'
+
 functions:
   importProductsFile:
     handler: handler.importProductsFile
@@ -59,6 +84,10 @@ functions:
           path: /import
           method: get
           cors: true
+          authorizer:
+            name: 'basicAuthorizer'
+            arn: 'arn:aws:lambda:us-east-1:489669634691:function:authorization-service-dev-basicAuthorizer'
+            type: 'request'
           request:
             parameters:
               querystrings:

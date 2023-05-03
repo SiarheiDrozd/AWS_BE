@@ -5,7 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "sls:deploy:import-service": "sls deploy",
-    "test": "jest"
+    "test": "jest",
+    "invoke:basicAuthorizer": "sls invoke local --function basicAuthorizer --path __mocks__/basic-request.json"
   },
   "author": "",
   "license": "ISC",
